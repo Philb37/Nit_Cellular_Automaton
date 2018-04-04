@@ -11,7 +11,7 @@ class CellularAutomaton
 		generateGrid
 		for i in [0..generationNumber] do
 			printn "{(new TermClearDisplay)}"
-			print "{(new TermCharFormat).black_fg}Génération n° {i}{(new TermCharFormat).black_fg}"
+			print "{(new TermCharFormat).default_fg}Génération n° {i}{(new TermCharFormat).default_fg}"
 			nextGeneration
 		end
 	end
@@ -62,7 +62,7 @@ class CellularAutomaton
 				else if grid[i][j].currentState == 1 and grid[i][j].nextState == 0 then
 					printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
 				else if	grid[i][j].currentState == 0 and grid[i][j].nextState == 1 then
-					printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"	
+					printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
 				else
 					printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 				end
