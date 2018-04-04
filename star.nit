@@ -2,9 +2,10 @@ module star
 import celestial_body
 
 class Star super CelestialBody
-	var isAlive: Boolean
+	var isAlive: Bool
 
-	fun superNova:
+	fun superNova
+	do
 		#TODO
 	end
 end

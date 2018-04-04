@@ -1,5 +1,5 @@
 module human
-import lifeForm
+import life_form
 
 class Human super LifeForm
 end

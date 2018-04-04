@@ -6,17 +6,18 @@ class PlanetarySystem super Cell
 
 	var celestialBodies: Array[CelestialBody]
 
-	fun verifyColonizationStatus:
+	fun verifyColonizationStatus
 	do
 		#TODO
 	end
 
-	fun verifyStarStatus: Boolean
+	fun verifyStarStatus: Bool
 	do
 		#TODO
+		return false
 	end
 
-	fun extinguish:
+	fun extinguish
 	do
 		#TODO
 	end

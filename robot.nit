@@ -1,5 +1,5 @@
 module robot
-import lifeForm
+import life_form
 
 class Robot super LifeForm
 end

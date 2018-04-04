@@ -1,4 +1,6 @@
 module life_form
+import cell
+import celestial_body
 
 class LifeForm super Cell
 	var ressource: Int
@@ -13,17 +15,18 @@ class LifeForm super Cell
 		#TODO
 	end
 
-	fun fight(lifeform: LifeForm): Boolean
+	fun fight(lifeform: LifeForm): Bool
+	do
+		#TODO
+		return false
+	end
+
+	fun loseRessources
 	do
 		#TODO
 	end
 
-	fun loseRessources:
-	do
-		#TODO
-	end
-
-	fun verifyRessources:
+	fun verifyRessources
 	do
 		#TODO
 	end
