@@ -1,8 +1,8 @@
 module space_ship
 import life_form
 
-class SpaceShip[E]
-	var lifeForm: LifeForm
+class SpaceShip[E : LifeForm]
+	var lifeForm: E
 	var ressources: Int
 
 	fun calculateRessources
@@ -10,12 +10,12 @@ class SpaceShip[E]
 		#TODO
 	end
 
-	fun addNewUnit(unit: LifeForm)
+	fun addNewUnit(unit: E)
 	do
 		#TODO
 	end
 
-	fun getUnit(x: Int, y: Int): LifeForm
+	fun getUnit(x: Int, y: Int): E
 	do
 		#TODO
 		return lifeForm

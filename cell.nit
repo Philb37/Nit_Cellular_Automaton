@@ -1,39 +1,31 @@
 module cell
 
-class Cell
-	var currentState: Int
-	var nextState: Int
-	var x: Int
-	var y: Int
+abstract class Cell[E]
+	
+	var currentState: nullable E
+	var nextState: nullable E
+	var coordinates: Array[Int]
+	var neightboors: Array[Cell] is noinit
 
-	fun determineNextState(grid: Array[Array[Cell]])
+	fun determinateNextState do end
+
+	fun setCurrentState(state: E)
 	do
-		var aliveCellCount = 0
-
-		for i in [-1..1] do
-			for j in [-1..1] do
-				aliveCellCount += grid[x + i][y + j].currentState
-			end
-		end
-
-		aliveCellCount -= grid[x][y].currentState
-
-		if aliveCellCount == 3 then
-			nextState = 1
-		else if aliveCellCount == 2 then
-			nextState = currentState
-		else
-			nextState = 0
-		end
+		currentState = state
 	end
 
-	fun changeCurrentState
+	fun getCurrentState: E
 	do
-		currentState = nextState
+		return currentState
 	end
 
-	fun setCurrentState(newState: Int)
+	fun setNextState(state: E)
 	do
-		currentState = newState
+		nextState = state
+	end
+
+	fun getNextState: E
+	do
+		return nextState
 	end
 end
