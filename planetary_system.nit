@@ -2,7 +2,8 @@ module planetary_system
 import celestial_body
 import cell
 
-class PlanetarySystem super Cell
+class PlanetarySystem 
+	super Cell[Int]
 
 	var celestialBodies: Array[CelestialBody]
 

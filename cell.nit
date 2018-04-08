@@ -1,13 +1,20 @@
 module cell
+import rule
 
 abstract class Cell[E]
 	
+	var neightboors: Array[Cell[E]] is noinit
 	var currentState: nullable E
 	var nextState: nullable E
+	var rule: nullable Rule
 	var coordinates: Array[Int]
-	var neightboors: Array[Cell] is noinit
 
-	fun determinateNextState do end
+	init
+	do
+		neightboors = new Array[Cell[E]]
+	end
+
+	fun determineNextState do end
 
 	fun setCurrentState(state: E)
 	do
@@ -28,4 +35,11 @@ abstract class Cell[E]
 	do
 		return nextState
 	end
+
+	fun updateState
+	do
+		setCurrentState(getNextState)
+	end
+
+	fun createRule do end
 end

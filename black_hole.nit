@@ -1,5 +1,6 @@
 module black_hole
 import cell
 
-class BlackHole super Cell
+class BlackHole 
+	super Cell[Int]
 end

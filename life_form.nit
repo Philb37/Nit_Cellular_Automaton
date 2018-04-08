@@ -2,7 +2,8 @@ module life_form
 import cell
 import celestial_body
 
-class LifeForm super Cell
+class LifeForm 
+	super Cell[Int]
 	var ressource: Int
 
 	fun takeRessources(celestialBody: CelestialBody)

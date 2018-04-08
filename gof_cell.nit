@@ -1,26 +1,36 @@
 module gof_cell
 import cell
+import gof_rule
 
-class GOFCell
+class GOFCell[E]
+	super Cell[E]
 
-	fun determineNextState
+	init
+	do
+		createRule
+	end
+
+	redef fun createRule
+	do
+		rule = new GOFRule
+	end
+
+	redef fun determineNextState
 	do
 		var aliveCellCount = 0
 
-		for i in [-1..1] do
-			for j in [-1..1] do
-				aliveCellCount += grid[x + i][y + j].currentState
-			end
+		for k in [0..neightboors.length - 1] do
+			aliveCellCount += neightboors[k].currentState.as(Int)
 		end
 
-		aliveCellCount -= grid[x][y].currentState
+		aliveCellCount -= getCurrentState.as(Int)
 
-		if aliveCellCount == 3 then
-			nextState = 1
-		else if aliveCellCount == 2 then
-			nextState = currentState
+		var result = rule.determineResult(aliveCellCount)
+
+		if result == -1 then
+			setNextState(getCurrentState)
 		else
-			nextState = 0
+			setNextState(result)
 		end
 	end
 end
