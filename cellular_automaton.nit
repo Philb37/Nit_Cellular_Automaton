@@ -31,17 +31,27 @@ abstract class CellularAutomaton
 	do
 		for i in [0..grid.length - 1]
 		do
+			var voisins = 0
 			for j in [0..grid.length - 1]
 			do
-				if i != j then
-					var coordinatesNumber = grid[i].coordinates.length
-					for k in [0..coordinatesNumber - 1]
-					do
-						if grid[i].coordinates[k] == grid[j].coordinates[k] or grid[i].coordinates[k] + 1 == grid[j].coordinates[k] or grid[i].coordinates[k] - 1 == grid[j].coordinates[k] then
-							grid[i].neightboors[grid[i].neightboors.length] = grid[j]
-							break
-						end 
+				var coordinatesNumber = grid[i].coordinates.length
+				var result = 0
+ 				for k in [0..coordinatesNumber - 1]
+				do
+					if result == coordinatesNumber
+					then
+						result += 1
+					else
+						result += (grid[i].coordinates[k] - grid[j].coordinates[k]).abs
 					end
+					if k == coordinatesNumber - 1 and (grid[i].coordinates[k] - grid[j].coordinates[k]).abs > 1
+					then
+						result += 1
+					end
+				end
+				if result <= coordinatesNumber and result != 0 then
+					voisins += 1
+					grid[i].neightboors[grid[i].neightboors.length] = grid[j]
 				end
 			end
 		end

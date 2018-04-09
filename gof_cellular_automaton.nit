@@ -29,13 +29,10 @@ class GOFCellularAutomaton
 
 		grid = new Array[GOFCell[Int]]
 
-		#printn "{dims[0]} {dims[1]}"
-		#print ""
-
 		for i in [0..cellNumber - 1]
 		do
-			grid[i] = new GOFCell[Int](null, null, null, dims)
-
+			var tempArray = [dims[0],dims[1]]
+			grid[i] = new GOFCell[Int](null, null, null, tempArray)
 			if dims[0] == dimensions[0] - 1 then
 				dims[1] += 1
 				dims[0] = 0
@@ -43,8 +40,6 @@ class GOFCellularAutomaton
 				dims[0] += 1
 			end
 
-			#printn "{dims[0]} {dims[1]}"
-			#print ""
 		end
 	end
 
@@ -100,8 +95,6 @@ class GOFCellularAutomaton
 		end
 
 		for i in [0..grid.length - 1] do
-			#print grid[i].coordinates[0]
-			#print grid[i].coordinates[1]
 			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(GOFCell[Int])
 		end
 	end

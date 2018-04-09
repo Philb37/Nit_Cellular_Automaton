@@ -2,7 +2,7 @@ module cell
 import rule
 
 abstract class Cell[E]
-	
+
 	var neightboors: Array[Cell[E]] is noinit
 	var currentState: nullable E
 	var nextState: nullable E
