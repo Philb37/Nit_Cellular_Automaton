@@ -9,8 +9,6 @@ abstract class CellularAutomaton
 	var generation: Int
 	var sleepTime: Int
 
-	fun start do end
-
 	fun nextGeneration
 	do
 		for i in [0..grid.length - 1] do
@@ -25,37 +23,46 @@ abstract class CellularAutomaton
 		end
 	end
 
-	fun generateGrid do	end
-
-	fun determineNeightboors
+	fun determineNeightboors(distance: Int)
 	do
-		for i in [0..grid.length - 1]
-		do
-			var voisins = 0
-			for j in [0..grid.length - 1]
-			do
-				var coordinatesNumber = grid[i].coordinates.length
-				var result = 0
- 				for k in [0..coordinatesNumber - 1]
-				do
-					if result == coordinatesNumber
-					then
-						result += 1
-					else
-						result += (grid[i].coordinates[k] - grid[j].coordinates[k]).abs
-					end
-					if k == coordinatesNumber - 1 and (grid[i].coordinates[k] - grid[j].coordinates[k]).abs > 1
-					then
-						result += 1
-					end
+		for i in [0..grid.length - 1] do
+			for j in [0..grid.length - 1] do
+				var points = new Array[Array[Int]]
+				points[0] = new Array[Int]
+				points[1] = new Array[Int]
+
+				var length = grid[i].coordinates.length
+				for k in [0..length - 1] do
+					points[0][k] = grid[i].coordinates[k]
+					points[1][k] = grid[j].coordinates[k]
 				end
-				if result <= coordinatesNumber and result != 0 then
-					voisins += 1
+
+				if tchebychevDistance(points) == distance then
 					grid[i].neightboors[grid[i].neightboors.length] = grid[j]
 				end
 			end
 		end
 	end
+
+	fun tchebychevDistance(points: Array[Array[Int]]): Int
+	do
+		var max = 0
+
+		var length = points[0].length
+		for i in [0..length - 1] do
+			var temp = (points[0][i] - points[1][i]).abs
+
+			if temp > max then
+				max = temp 
+			end
+		end
+
+		return max
+	end
+
+	fun start do end
+
+	fun generateGrid do	end
 
 	fun displayGrid do end
 end

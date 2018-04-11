@@ -14,8 +14,6 @@ abstract class Cell[E]
 		neightboors = new Array[Cell[E]]
 	end
 
-	fun determineNextState do end
-
 	fun setCurrentState(state: E)
 	do
 		currentState = state
@@ -38,8 +36,11 @@ abstract class Cell[E]
 
 	fun updateState
 	do
-		setCurrentState(getNextState)
+		currentState = nextState
+		#setCurrentState(getNextState)
 	end
 
 	fun createRule do end
+
+	fun determineNextState do end
 end
