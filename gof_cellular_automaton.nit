@@ -11,7 +11,7 @@ class GOFCellularAutomaton
 	init
 	do
 		generateGrid
-		determineNeightboors(1)
+		determineNeighbours(1)
 		cellBirth
 		fillDisplayGrid
 	end

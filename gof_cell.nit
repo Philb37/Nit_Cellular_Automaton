@@ -18,12 +18,12 @@ class GOFCell[E]
 	redef fun determineNextState
 	do
 		var aliveCellCount = 0
-		
-		for k in [0..neightboors.length - 1] do
-			aliveCellCount += neightboors[k].currentState.as(Int)
+
+		for k in [0..neighbours.length - 1] do
+			aliveCellCount += neighbours[k].currentState.as(Int)
 		end
 
-		var result = rule.determineResult(aliveCellCount)
+		var result = rule.determineResultI(aliveCellCount)
 
 		if result == -1 then
 			setNextState(getCurrentState)

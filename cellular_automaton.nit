@@ -23,7 +23,7 @@ abstract class CellularAutomaton
 		end
 	end
 
-	fun determineNeightboors(distance: Int)
+	fun determineNeighbours(distance: Int)
 	do
 		for i in [0..grid.length - 1] do
 			for j in [0..grid.length - 1] do
@@ -38,7 +38,7 @@ abstract class CellularAutomaton
 				end
 
 				if tchebychevDistance(points) == distance then
-					grid[i].neightboors[grid[i].neightboors.length] = grid[j]
+					grid[i].neighbours[grid[i].neighbours.length] = grid[j]
 				end
 			end
 		end

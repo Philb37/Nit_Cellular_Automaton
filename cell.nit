@@ -3,7 +3,7 @@ import rule
 
 abstract class Cell[E]
 
-	var neightboors: Array[Cell[E]] is noinit
+	var neighbours: Array[Cell[E]] is noinit
 	var currentState: nullable E
 	var nextState: nullable E
 	var rule: nullable Rule
@@ -11,7 +11,7 @@ abstract class Cell[E]
 
 	init
 	do
-		neightboors = new Array[Cell[E]]
+		neighbours = new Array[Cell[E]]
 	end
 
 	fun setCurrentState(state: E)
