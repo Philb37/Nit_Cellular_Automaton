@@ -1,6 +1,7 @@
 module rule
 
 abstract class Rule
+	var neighboursRadius: Int
 	fun determineResultI(value: Int): Int do return 0
 
 	fun determineResultS(value: String): String do return ""

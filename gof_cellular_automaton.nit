@@ -2,6 +2,7 @@ module gof_cellular_automaton
 import console
 import gof_cell
 import cellular_automaton
+import gof_rule
 
 class GOFCellularAutomaton
 	super CellularAutomaton
@@ -11,7 +12,7 @@ class GOFCellularAutomaton
 	init
 	do
 		generateGrid
-		determineNeighbours(1)
+		determineNeighbours
 		cellBirth
 		fillDisplayGrid
 	end
@@ -32,8 +33,8 @@ class GOFCellularAutomaton
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new GOFCell[Int](0, 0, null, tempArray)
-			
+			grid[i] = new GOFCell[Int](0, 0, new GOFRule(1), tempArray)
+
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
 				dims[1] = 0

@@ -1,7 +1,8 @@
 module planet
 import celestial_body
 
-class Planet super CelestialBody
+class Planet[E]
+	super CelestialBody[E]
 
 	fun generateRessources
 	do

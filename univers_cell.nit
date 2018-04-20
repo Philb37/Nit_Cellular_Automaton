@@ -1,8 +1,8 @@
-module gof_cell
+module univers_cell
 import cell
 import gof_rule
 
-class GOFCell[E]
+class UniversCell[E]
 	super Cell[E]
 
 	init

@@ -1,5 +1,7 @@
 import gof_cell
 import gof_cellular_automaton
+import univers_cellular_automaton
+import univers_cell
 import human
 import robot
 import planetary_system
@@ -18,5 +20,6 @@ import planet
 
 var dimensions = [50, 50]
 
-var ca = new GOFCellularAutomaton(dimensions, dimensions.length, 100, 1)
+#var ca = new GOFCellularAutomaton(dimensions, dimensions.length, 100, 1)
+var ca = new UniversCellularAutomaton(dimensions, dimensions.length, 100, 1)
 ca.start

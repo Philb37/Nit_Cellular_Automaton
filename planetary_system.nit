@@ -2,10 +2,9 @@ module planetary_system
 import celestial_body
 import cell
 
-class PlanetarySystem 
-	super Cell[Int]
+class PlanetarySystem
 
-	var celestialBodies: Array[CelestialBody]
+	var celestialBodies: Array[CelestialBody[Int]]
 
 	fun verifyColonizationStatus
 	do

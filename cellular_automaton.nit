@@ -18,12 +18,12 @@ abstract class CellularAutomaton
 		displayGrid
 		sleepTime.sleep
 
-		for i in [0..grid.length - 1] do
-			grid[i].updateState
-		end
+		#for i in [0..grid.length - 1] do
+		#	grid[i].updateState
+		#end
 	end
 
-	fun determineNeighbours(distance: Int)
+	fun determineNeighbours
 	do
 		for i in [0..grid.length - 1] do
 			for j in [0..grid.length - 1] do
@@ -37,7 +37,7 @@ abstract class CellularAutomaton
 					points[1][k] = grid[j].coordinates[k]
 				end
 
-				if tchebychevDistance(points) == distance then
+				if tchebychevDistance(points) <= grid[i].rule.neighboursRadius then
 					grid[i].neighbours[grid[i].neighbours.length] = grid[j]
 				end
 			end
@@ -53,7 +53,7 @@ abstract class CellularAutomaton
 			var temp = (points[0][i] - points[1][i]).abs
 
 			if temp > max then
-				max = temp 
+				max = temp
 			end
 		end
 
