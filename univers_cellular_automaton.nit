@@ -5,6 +5,7 @@ import cellular_automaton
 import star
 import planet
 import univers_rule
+import life_form
 
 class UniversCellularAutomaton
 	super CellularAutomaton
@@ -18,6 +19,7 @@ class UniversCellularAutomaton
 		generateGrid
 		generateStarCoordinates
 		generateSystem
+		cellBirth
 		determineNeighbours
 		fillDisplayGrid
 	end
@@ -38,7 +40,7 @@ class UniversCellularAutomaton
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new UniversCell[Int](0,0, tempArray)
+			grid[i] = new LifeForm[Int](0,0, tempArray,0)
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
 				dims[1] = 0
@@ -67,8 +69,14 @@ class UniversCellularAutomaton
 					printn "{(new TermCharFormat).blue_fg}🌎 {(new TermCharFormat).blue_fg}"
 				else if	displayGridArray[i][j] isa Star[Int] then
 					printn "{(new TermCharFormat).green_fg}🌞 {(new TermCharFormat).green_fg}"
+				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
+					printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
+				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == 0 then
+					printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
+				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 0 and displayGridArray[i][j].getNextState == 1 then
+					printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
 				else
-					printn "{(new TermCharFormat).red_fg}* {(new TermCharFormat).red_fg}"
+					printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 				end
 
 			end
@@ -83,6 +91,19 @@ class UniversCellularAutomaton
 				if grid[i].coordinates[0] == arrayCoordinates[k][0] and grid[i].coordinates[1] == arrayCoordinates[k][1] then
 					grid[i] = new Star[Int](1,0,grid[i].coordinates,false,0,true)
 					createSolarSystem(grid[i].as(Star[Int]))
+				end
+			end
+		end
+	end
+
+	fun cellBirth
+	do
+		for i in [0..grid.length - 1] do
+			if grid[i] isa LifeForm[Int] then
+				if 100.rand <= 33 then
+					grid[i].setCurrentState(1)
+				else
+					grid[i].setCurrentState(0)
 				end
 			end
 		end

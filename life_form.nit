@@ -2,8 +2,8 @@ module life_form
 import cell
 import celestial_body
 
-class LifeForm
-	super Cell[Int]
+class LifeForm[E]
+	super UniversCell[Int]
 	var ressource: Int
 
 	fun takeRessources(celestialBody: CelestialBody[Int])
@@ -16,7 +16,7 @@ class LifeForm
 		#TODO
 	end
 
-	fun fight(lifeform: LifeForm): Bool
+	fun fight(lifeform: LifeForm[E]): Bool
 	do
 		#TODO
 		return false
@@ -30,5 +30,10 @@ class LifeForm
 	fun verifyRessources
 	do
 		#TODO
+	end
+
+	redef fun createRule
+	do
+		rule = new UniversRule(1)
 	end
 end

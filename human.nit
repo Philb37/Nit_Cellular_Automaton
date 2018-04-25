@@ -1,5 +1,5 @@
 module human
 import life_form
 
-class Human super LifeForm
+class Human[E] super LifeForm[E]
 end

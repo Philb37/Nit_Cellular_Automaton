@@ -1,7 +1,7 @@
 module space_ship
 import life_form
 
-class SpaceShip[E : LifeForm]
+class SpaceShip[E]
 	var lifeForm: E
 	var ressources: Int
 
