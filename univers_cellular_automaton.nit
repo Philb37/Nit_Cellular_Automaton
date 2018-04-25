@@ -35,7 +35,7 @@ class UniversCellularAutomaton
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new UniversCell[Int](0,0, null, tempArray)
+			grid[i] = new UniversCell[Int](0,0, tempArray)
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
 				dims[1] = 0
@@ -80,7 +80,7 @@ class UniversCellularAutomaton
 	do
 		for i in [0..grid.length - 1] do
 			if grid[i].coordinates == [10,10] or grid[i].coordinates == [40,40] or grid[i].coordinates == [25,25] or grid[i].coordinates == [10,40] or grid[i].coordinates == [40,10] then
-				grid[i] = new Star[Int](2,null, new UniversRule(3), grid[i].coordinates,false,0,true)
+				grid[i] = new Star[Int](2, 0, grid[i].coordinates,false,0,true)
 				createSolarSystem(grid[i].as(Star[Int]))
 			end
 		end
@@ -97,7 +97,7 @@ class UniversCellularAutomaton
 				do
 					if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
 						if 100.rand <= 8 then
-							grid[i] = new Planet[Int](1,null, new UniversRule(2), grid[i].coordinates,false,0)
+							grid[i] = new Planet[Int](1, 0, grid[i].coordinates,false,0)
 							planetNumber += 1
 						end
 						end
@@ -115,7 +115,7 @@ class UniversCellularAutomaton
 		for i in [0..height - 1] do
 			displayGridArray[i] = new Array[UniversCell[Int]]
 			for j in [0..width - 1] do
-				displayGridArray[i][j] = new UniversCell[Int](0, 0, null, new Array[Int])
+				displayGridArray[i][j] = new UniversCell[Int](0, 0, new Array[Int])
 			end
 		end
 

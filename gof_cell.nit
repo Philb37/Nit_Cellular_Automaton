@@ -20,7 +20,7 @@ class GOFCell[E]
 		var aliveCellCount = 0
 
 		for k in [0..neighbours.length - 1] do
-			aliveCellCount += neighbours[k].currentState.as(Int)
+			aliveCellCount += neighbours[k].getCurrentState.as(Int)
 		end
 
 		var result = rule.determineResultI(aliveCellCount)

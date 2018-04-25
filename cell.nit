@@ -3,44 +3,43 @@ import rule
 
 abstract class Cell[E]
 
-	var neighbours: Array[Cell[E]] is noinit
-	var currentState: nullable E
-	var nextState: nullable E
-	var rule: nullable Rule
-	var coordinates: Array[Int]
+	public var neighbours: Array[Cell[E]] is noinit
+	private var currentState: E
+	private var nextState: E
+	public var rule: nullable Rule is noinit
+	public var coordinates: Array[Int]
 
 	init
 	do
 		neighbours = new Array[Cell[E]]
 	end
 
-	fun setCurrentState(state: E)
+	public fun setCurrentState(state: E)
 	do
 		currentState = state
 	end
 
-	fun getCurrentState: E
+	public fun getCurrentState: E
 	do
 		return currentState
 	end
 
-	fun setNextState(state: E)
+	public fun setNextState(state: E)
 	do
 		nextState = state
 	end
 
-	fun getNextState: E
+	public fun getNextState: E
 	do
 		return nextState
 	end
 
-	fun updateState
+	public fun updateState
 	do
-		currentState = nextState
-		#setCurrentState(getNextState)
+		setCurrentState(getNextState)
 	end
 
-	fun createRule do end
+	protected fun createRule do end
 
-	fun determineNextState do end
+	public fun determineNextState do end
 end

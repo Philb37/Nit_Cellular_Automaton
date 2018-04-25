@@ -33,7 +33,7 @@ class GOFCellularAutomaton
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new GOFCell[Int](0, 0, new GOFRule(1), tempArray)
+			grid[i] = new GOFCell[Int](0, 0, tempArray)
 
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
@@ -60,11 +60,11 @@ class GOFCellularAutomaton
 
 			var length = displayGridArray[i].length
 			for j in [0..length - 1] do
-				if displayGridArray[i][j].currentState == 1 and displayGridArray[i][j].nextState == displayGridArray[i][j].currentState then
+				if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
 					printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
-				else if displayGridArray[i][j].currentState == 1 and displayGridArray[i][j].nextState == 0 then
+				else if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == 0 then
 					printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
-				else if	displayGridArray[i][j].currentState == 0 and displayGridArray[i][j].nextState == 1 then
+				else if	displayGridArray[i][j].getCurrentState == 0 and displayGridArray[i][j].getNextState == 1 then
 					printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
 				else
 					printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
@@ -95,7 +95,7 @@ class GOFCellularAutomaton
 		for i in [0..height - 1] do
 			displayGridArray[i] = new Array[GOFCell[Int]]
 			for j in [0..width - 1] do
-				displayGridArray[i][j] = new GOFCell[Int](0, 0, null, new Array[Int])
+				displayGridArray[i][j] = new GOFCell[Int](0, 0, new Array[Int])
 			end
 		end
 

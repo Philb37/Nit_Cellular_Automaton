@@ -1,6 +1,6 @@
 module univers_cell
 import cell
-import gof_rule
+import univers_rule
 
 class UniversCell[E]
 	super Cell[E]
@@ -12,7 +12,7 @@ class UniversCell[E]
 
 	redef fun createRule
 	do
-		rule = new GOFRule(1)
+		rule = new UniversRule(1)
 	end
 
 	redef fun determineNextState
@@ -20,7 +20,7 @@ class UniversCell[E]
 		var aliveCellCount = 0
 
 		for k in [0..neighbours.length - 1] do
-			aliveCellCount += neighbours[k].currentState.as(Int)
+			aliveCellCount += neighbours[k].getCurrentState.as(Int)
 		end
 
 		var result = rule.determineResultI(aliveCellCount)

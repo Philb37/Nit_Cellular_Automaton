@@ -3,13 +3,13 @@ import cell
 
 abstract class CellularAutomaton
 
-	var grid: Array[Cell[Int]] is noinit
-	var dimensions: Array[Int]
-	var dimension: Int
-	var generation: Int
-	var sleepTime: Int
+	protected var grid: Array[Cell[Int]] is noinit
+	protected var dimensions: Array[Int]
+	protected var dimension: Int
+	protected var generation: Int
+	protected var sleepTime: Int
 
-	fun nextGeneration
+	protected fun nextGeneration
 	do
 		for i in [0..grid.length - 1] do
 			grid[i].determineNextState
@@ -18,12 +18,12 @@ abstract class CellularAutomaton
 		displayGrid
 		sleepTime.sleep
 
-		#for i in [0..grid.length - 1] do
-		#	grid[i].updateState
-		#end
+		for i in [0..grid.length - 1] do
+			grid[i].updateState
+		end
 	end
 
-	fun determineNeighbours
+	protected fun determineNeighbours
 	do
 		for i in [0..grid.length - 1] do
 			for j in [0..grid.length - 1] do
@@ -37,14 +37,16 @@ abstract class CellularAutomaton
 					points[1][k] = grid[j].coordinates[k]
 				end
 
-				if tchebychevDistance(points) <= grid[i].rule.neighboursRadius then
+				var distance = tchebychevDistance(points)
+
+				if distance <= grid[i].rule.neighboursRadius and distance != 0 then
 					grid[i].neighbours[grid[i].neighbours.length] = grid[j]
 				end
 			end
 		end
 	end
 
-	fun tchebychevDistance(points: Array[Array[Int]]): Int
+	private fun tchebychevDistance(points: Array[Array[Int]]): Int
 	do
 		var max = 0
 
@@ -60,9 +62,9 @@ abstract class CellularAutomaton
 		return max
 	end
 
-	fun start do end
+	protected fun generateGrid do end
 
-	fun generateGrid do	end
+	protected fun displayGrid do end
 
-	fun displayGrid do end
+	public fun start do end
 end

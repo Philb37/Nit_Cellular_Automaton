@@ -20,6 +20,6 @@ import planet
 
 var dimensions = [50, 50]
 
-#var ca = new GOFCellularAutomaton(dimensions, dimensions.length, 100, 1)
-var ca = new UniversCellularAutomaton(dimensions, dimensions.length, 100, 1)
+var ca = new GOFCellularAutomaton(dimensions, dimensions.length, 100, 1)
+#var ca = new UniversCellularAutomaton(dimensions, dimensions.length, 100, 1)
 ca.start
