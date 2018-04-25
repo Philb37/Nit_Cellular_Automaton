@@ -10,12 +10,15 @@ class UniversCellularAutomaton
 	super CellularAutomaton
 
 	var displayGridArray = new Array[Array[UniversCell[Int]]]
+	var arrayCoordinates = new Array[Array[Int]]
+	var starNumber: Int
 
 	init
 	do
 		generateGrid
+		generateStarCoordinates
 		generateSystem
-		#determineNeighbours
+		determineNeighbours
 		fillDisplayGrid
 	end
 
@@ -60,12 +63,9 @@ class UniversCellularAutomaton
 		for i in [0..displayGridArray.length - 1] do
 			var length = displayGridArray[i].length
 			for j in [0..length - 1] do
-				if displayGridArray[i] == 0 then
-					printn "{(new TermCharFormat).blue_fg}| {(new TermCharFormat).blue_fg}"
-				end
-				if displayGridArray[i][j].getCurrentState == 1 then
+				if displayGridArray[i][j] isa Planet[Int] then
 					printn "{(new TermCharFormat).blue_fg}🌎 {(new TermCharFormat).blue_fg}"
-				else if	displayGridArray[i][j].getCurrentState == 2 then
+				else if	displayGridArray[i][j] isa Star[Int] then
 					printn "{(new TermCharFormat).green_fg}🌞 {(new TermCharFormat).green_fg}"
 				else
 					printn "{(new TermCharFormat).red_fg}* {(new TermCharFormat).red_fg}"
@@ -79,9 +79,37 @@ class UniversCellularAutomaton
 	fun generateSystem
 	do
 		for i in [0..grid.length - 1] do
-			if grid[i].coordinates == [10,10] or grid[i].coordinates == [40,40] or grid[i].coordinates == [25,25] or grid[i].coordinates == [10,40] or grid[i].coordinates == [40,10] then
-				grid[i] = new Star[Int](2, 0, grid[i].coordinates,false,0,true)
-				createSolarSystem(grid[i].as(Star[Int]))
+			for k in [0..arrayCoordinates.length - 1] do
+				if grid[i].coordinates[0] == arrayCoordinates[k][0] and grid[i].coordinates[1] == arrayCoordinates[k][1] then
+					grid[i] = new Star[Int](1,0,grid[i].coordinates,false,0,true)
+					createSolarSystem(grid[i].as(Star[Int]))
+				end
+			end
+		end
+	end
+
+	fun generateStarCoordinates
+	do
+		var starCount = 0
+		while starCount != starNumber do
+			var check = false
+			var x = 50.rand
+			var y = 50.rand
+
+			if arrayCoordinates.length > 0 then
+				for k in [0..arrayCoordinates.length -1]
+				do
+					if (arrayCoordinates[k][0] - x).abs < 10 and (arrayCoordinates[k][1] - y).abs < 8 then
+						check = true
+					end
+				end
+				if not check then
+					arrayCoordinates.add([x,y])
+					starCount += 1
+				end
+			else
+				arrayCoordinates.add([x,y])
+				starCount += 1
 			end
 		end
 	end
