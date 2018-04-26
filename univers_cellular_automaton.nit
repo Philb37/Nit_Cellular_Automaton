@@ -67,12 +67,16 @@ class UniversCellularAutomaton
 			for j in [0..length - 1] do
 				if displayGridArray[i][j] isa Planet[Int] then
 					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).blue_fg}🌎 {(new TermCharFormat).blue_fg}"
+						printn "{(new TermCharFormat).green_fg}🌎 {(new TermCharFormat).green_fg}"
 					else
-						printn "{(new TermCharFormat).red_fg}🌎 {(new TermCharFormat).red_fg}"
+						printn "{(new TermCharFormat).yellow_fg}🌎 {(new TermCharFormat).yellow_fg}"
 					end
 				else if	displayGridArray[i][j] isa Star[Int] then
-					printn "{(new TermCharFormat).green_fg}🌞 {(new TermCharFormat).green_fg}"
+					if displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).white_fg}🌞 {(new TermCharFormat).white_fg}"
+					else
+						printn "{(new TermCharFormat).yellow_fg}🌞 {(new TermCharFormat).yellow_fg}"
+					end
 				else if displayGridArray[i][j] isa LifeForm[Int] then
 					if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
 						printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
@@ -89,15 +93,25 @@ class UniversCellularAutomaton
 		end
 	end
 
-	fun generateSystem
+	fun generateSystemb
 	do
 		for i in [0..grid.length - 1] do
 			for k in [0..arrayCoordinates.length - 1] do
 				if grid[i].coordinates[0] == arrayCoordinates[k][0] and grid[i].coordinates[1] == arrayCoordinates[k][1] then
-					grid[i] = new Star[Int](1,0,grid[i].coordinates,false,0,true)
+					grid[i] = new Star[Int](0,0,grid[i].coordinates,false,0,true)
 					createSolarSystem(grid[i].as(Star[Int]))
 				end
 			end
+		end
+	end
+
+	fun generateSystem
+	do
+		var index: Int
+		for k in [0..arrayCoordinates.length - 1] do
+			index = findIndex(arrayCoordinates[k])
+			grid[index] = new Star[Int](0,0,grid[index].coordinates,false,0,true)
+			createSolarSystem(grid[index].as(Star[Int]))
 		end
 	end
 
@@ -119,13 +133,13 @@ class UniversCellularAutomaton
 		var starCount = 0
 		while starCount != starNumber do
 			var check = false
-			var x = 50.rand
-			var y = 50.rand
+			var x = 49.rand
+			var y = 49.rand
 
 			if arrayCoordinates.length > 0 then
 				for k in [0..arrayCoordinates.length -1]
 				do
-					if (arrayCoordinates[k][0] - x).abs < 10 and (arrayCoordinates[k][1] - y).abs < 8 then
+					if (arrayCoordinates[k][0] - x).abs < 15 and (arrayCoordinates[k][1] - y).abs < 11 then
 						check = true
 					end
 				end
@@ -145,13 +159,11 @@ class UniversCellularAutomaton
 		var planetNumber = 0
 		while planetNumber < 3 do
 		for i in [0..grid.length - 1] do
-			for j in [-3..3]
-			do
-				for k in [-3..3]
-				do
+			for j in [-3..3] do
+				for k in [-3..3] do
 					if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
 						if 100.rand <= 8 then
-							grid[i] = new Planet[Int](1, 0, grid[i].coordinates,false,0)
+							grid[i] = new Planet[Int](0, 0, grid[i].coordinates,false,0)
 							planetNumber += 1
 						end
 						end

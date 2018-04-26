@@ -15,17 +15,12 @@ class Planet[E]
 		rule = new UniversRule(1)
 	end
 
-	fun generateRessources(lifeforms: Int)
-	do
-		ressources += lifeforms * 10 
-	end
-
 	fun loseRessources
 	do
-		ressources -= 9
+		setRessources(getRessources - 7)
 
-		if ressources < 0 then
-			ressources = 0
+		if getRessources < 0 then
+			setRessources(0)
 		end
 	end
 
@@ -39,9 +34,9 @@ class Planet[E]
 			end
 		end
 
-		generateRessources(aliveCellCount)
+		setRessources(getRessources + rule.as(UniversRule).determinePlanetState(aliveCellCount))
 
-		if ressources == 0 then
+		if getRessources == 0 then
 			setNextState(0)
 		else
 			setNextState(1)

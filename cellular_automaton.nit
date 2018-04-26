@@ -46,7 +46,20 @@ abstract class CellularAutomaton
 		end
 	end
 
-	private fun tchebychevDistance(points: Array[Array[Int]]): Int
+	protected fun findIndex(coordinates: Array[Int]): Int
+	do
+		var result = 0
+		var x = 1
+
+		for i in [coordinates.length - 1..0].step(-1) do
+			result += coordinates[i] * x
+			x *= dimensions[i]
+		end
+
+		return result
+	end
+
+	protected fun tchebychevDistance(points: Array[Array[Int]]): Int
 	do
 		var max = 0
 

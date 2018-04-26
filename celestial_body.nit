@@ -5,7 +5,17 @@ import univers_cell
 class CelestialBody[E]
 	super UniversCell[E]
 
-	var isColonized: Bool
+	public var isColonized: Bool
 	#var habitant: LifeForm
-	var ressources: Int
+	protected var ressources: Int
+
+	public fun getRessources: Int
+	do
+		return ressources
+	end
+
+	public fun setRessources(ressource: Int)
+	do
+		ressources = ressource
+	end
 end
