@@ -93,18 +93,6 @@ class UniversCellularAutomaton
 		end
 	end
 
-	fun generateSystemb
-	do
-		for i in [0..grid.length - 1] do
-			for k in [0..arrayCoordinates.length - 1] do
-				if grid[i].coordinates[0] == arrayCoordinates[k][0] and grid[i].coordinates[1] == arrayCoordinates[k][1] then
-					grid[i] = new Star[Int](0,0,grid[i].coordinates,false,0,true)
-					createSolarSystem(grid[i].as(Star[Int]))
-				end
-			end
-		end
-	end
-
 	fun generateSystem
 	do
 		var index: Int
