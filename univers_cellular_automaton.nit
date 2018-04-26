@@ -66,19 +66,24 @@ class UniversCellularAutomaton
 			var length = displayGridArray[i].length
 			for j in [0..length - 1] do
 				if displayGridArray[i][j] isa Planet[Int] then
-					printn "{(new TermCharFormat).blue_fg}🌎 {(new TermCharFormat).blue_fg}"
+					if displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).blue_fg}🌎 {(new TermCharFormat).blue_fg}"
+					else
+						printn "{(new TermCharFormat).red_fg}🌎 {(new TermCharFormat).red_fg}"
+					end
 				else if	displayGridArray[i][j] isa Star[Int] then
 					printn "{(new TermCharFormat).green_fg}🌞 {(new TermCharFormat).green_fg}"
-				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
-					printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
-				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == 0 then
-					printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
-				else if	displayGridArray[i][j] isa LifeForm[Int] and displayGridArray[i][j].getCurrentState == 0 and displayGridArray[i][j].getNextState == 1 then
-					printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
-				else
-					printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+				else if displayGridArray[i][j] isa LifeForm[Int] then
+					if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
+						printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
+					else if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == 0 then
+						printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
+					else if displayGridArray[i][j].getCurrentState == 0 and displayGridArray[i][j].getNextState == 1 then
+						printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
+					else
+						printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+					end
 				end
-
 			end
 			print ""
 		end

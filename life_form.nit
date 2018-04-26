@@ -6,6 +6,25 @@ class LifeForm[E]
 	super UniversCell[Int]
 	var ressource: Int
 
+	redef fun determineNextState
+	do
+		var aliveCellCount = 0
+
+		for k in [0..neighbours.length - 1] do
+			if neighbours[k] isa LifeForm[E] then
+				aliveCellCount += neighbours[k].getCurrentState
+			end
+		end
+
+		var result = rule.determineResultI(aliveCellCount)
+
+		if result == -1 then
+			setNextState(getCurrentState)
+		else
+			setNextState(result)
+		end
+	end
+
 	fun takeRessources(celestialBody: CelestialBody[Int])
 	do
 		#TODO
