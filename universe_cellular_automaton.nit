@@ -1,16 +1,17 @@
-module univers_cellular_automaton
+module universe_cellular_automaton
 import console
-import univers_cell
+import universe_cell
 import cellular_automaton
-import star
-import planet
-import univers_rule
-import life_form
+import universe_star
+import universe_planet
+import universe_rule
+import universe_human
+import universe_robot
 
-class UniversCellularAutomaton
+class UniverseCellularAutomaton
 	super CellularAutomaton
 
-	var displayGridArray = new Array[Array[UniversCell[Int]]]
+	var displayGridArray = new Array[Array[UniverseCell[Int]]]
 	var arrayCoordinates = new Array[Array[Int]]
 	var starNumber: Int
 
@@ -35,12 +36,18 @@ class UniversCellularAutomaton
 			dims[i] = 0
 		end
 
-		grid = new Array[UniversCell[Int]]
+		grid = new Array[UniverseCell[Int]]
 
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new LifeForm[Int](0,0, tempArray,0)
+
+			if 100.rand > 50 then
+				grid[i] = new Human[Int](0,0, tempArray,0)
+			else
+				grid[i] = new Robot[Int](0,0, tempArray,0)
+			end
+	
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
 				dims[1] = 0
@@ -67,23 +74,25 @@ class UniversCellularAutomaton
 			for j in [0..length - 1] do
 				if displayGridArray[i][j] isa Planet[Int] then
 					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).green_fg}🌎 {(new TermCharFormat).green_fg}"
+						printn "{(new TermCharFormat).green_fg}● {(new TermCharFormat).green_fg}"
 					else
-						printn "{(new TermCharFormat).yellow_fg}🌎 {(new TermCharFormat).yellow_fg}"
+						printn "{(new TermCharFormat).yellow_fg}● {(new TermCharFormat).yellow_fg}"
 					end
 				else if	displayGridArray[i][j] isa Star[Int] then
 					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).white_fg}🌞 {(new TermCharFormat).white_fg}"
+						printn "{(new TermCharFormat).white_fg}◉ {(new TermCharFormat).white_fg}"
 					else
-						printn "{(new TermCharFormat).yellow_fg}🌞 {(new TermCharFormat).yellow_fg}"
+						printn "{(new TermCharFormat).yellow_fg}◉ {(new TermCharFormat).yellow_fg}"
 					end
-				else if displayGridArray[i][j] isa LifeForm[Int] then
-					if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == displayGridArray[i][j].getCurrentState then
+				else if displayGridArray[i][j] isa Human[Int] then
+					if displayGridArray[i][j].getCurrentState == 1 then
 						printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
-					else if displayGridArray[i][j].getCurrentState == 1 and displayGridArray[i][j].getNextState == 0 then
-						printn "{(new TermCharFormat).yellow_fg}○ {(new TermCharFormat).yellow_fg}"
-					else if displayGridArray[i][j].getCurrentState == 0 and displayGridArray[i][j].getNextState == 1 then
-						printn "{(new TermCharFormat).green_fg}x {(new TermCharFormat).green_fg}"
+					else
+						printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+					end
+				else if displayGridArray[i][j] isa Robot[Int] then
+					if displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).magenta_fg}○ {(new TermCharFormat).magenta_fg}"
 					else
 						printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 					end
@@ -167,14 +176,14 @@ class UniversCellularAutomaton
 		var width = dimensions[1]
 
 		for i in [0..height - 1] do
-			displayGridArray[i] = new Array[UniversCell[Int]]
+			displayGridArray[i] = new Array[UniverseCell[Int]]
 			for j in [0..width - 1] do
-				displayGridArray[i][j] = new UniversCell[Int](0, 0, new Array[Int])
+				displayGridArray[i][j] = new UniverseCell[Int](0, 0, new Array[Int])
 			end
 		end
 
 		for i in [0..grid.length - 1] do
-			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(UniversCell[Int])
+			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(UniverseCell[Int])
 		end
 	end
 end

@@ -1,6 +1,6 @@
-module planet
-import celestial_body
-import life_form
+module universe_planet
+import universe_celestial_body
+import universe_life_form
 
 class Planet[E]
 	super CelestialBody[E]
@@ -12,7 +12,7 @@ class Planet[E]
 
 	redef fun createRule
 	do
-		rule = new UniversRule(1)
+		rule = new UniverseRule(1)
 	end
 
 	fun loseRessources
@@ -34,7 +34,7 @@ class Planet[E]
 			end
 		end
 
-		setRessources(getRessources + rule.as(UniversRule).determinePlanetState(aliveCellCount))
+		setRessources(getRessources + rule.as(UniverseRule).determinePlanetState(aliveCellCount))
 
 		if getRessources == 0 then
 			setNextState(0)

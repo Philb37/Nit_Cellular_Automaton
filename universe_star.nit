@@ -1,6 +1,6 @@
-module star
-import celestial_body
-import planet
+module universe_star
+import universe_celestial_body
+import universe_planet
 
 class Star[E]
 	super CelestialBody[E]
@@ -13,7 +13,7 @@ class Star[E]
 
 	redef fun createRule
 	do
-		rule = new UniversRule(3)
+		rule = new UniverseRule(3)
 	end
 
 	redef fun determineNextState
@@ -28,7 +28,7 @@ class Star[E]
 			end
 		end
 
-		setNextState(rule.as(UniversRule).determineStarState(planetCount, alivePlanetCount))
+		setNextState(rule.as(UniverseRule).determineStarState(planetCount, alivePlanetCount))
 	end
 
 	fun superNova

@@ -1,8 +1,8 @@
-module univers_cell
+module universe_cell
 import cell
-import univers_rule
+import universe_rule
 
-class UniversCell[E]
+class UniverseCell[E]
 	super Cell[E]
 
 	init
@@ -12,6 +12,6 @@ class UniversCell[E]
 
 	redef fun createRule
 	do
-		rule = new UniversRule(1)
+		rule = new UniverseRule(1)
 	end
 end

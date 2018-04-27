@@ -1,5 +1,10 @@
-module robot
-import life_form
+module universe_robot
+import universe_life_form
 
-class Robot 
+class Robot[E]
+	super LifeForm[E]
+
+	#redef fun determineNextState
+	#do	
+	#end
 end

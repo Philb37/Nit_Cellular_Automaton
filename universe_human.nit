@@ -1,5 +1,6 @@
-module human
-import life_form
+module universe_human
+import universe_life_form
 
-class Human[E] super LifeForm[E]
+class Human[E] 
+	super LifeForm[E]
 end

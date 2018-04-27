@@ -1,14 +1,5 @@
-import gof_cell
-import gof_cellular_automaton
-import univers_cellular_automaton
-import univers_cell
-import human
-import robot
-import planetary_system
-import space_ship
-import star
-import black_hole
-import planet
+import gol_cellular_automaton
+import universe_cellular_automaton
 
 #if args.length == 3 then
 #	var game = new CellularAutomaton(args[0].to_i, args[1].to_i, args[2].to_i, new Array[Array[Cell]])
@@ -20,6 +11,6 @@ import planet
 
 var dimensions = [50, 50]
 
-#var ca = new GOFCellularAutomaton(dimensions, dimensions.length, 100, 1)
-var ca = new UniversCellularAutomaton(dimensions, dimensions.length, 500, 1,5)
+#var ca = new GOLCellularAutomaton(dimensions, dimensions.length, 100, 1)
+var ca = new UniverseCellularAutomaton(dimensions, dimensions.length, 500, 1,5)
 ca.start

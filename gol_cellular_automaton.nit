@@ -1,13 +1,13 @@
-module gof_cellular_automaton
+module gol_cellular_automaton
 import console
-import gof_cell
+import gol_cell
 import cellular_automaton
-import gof_rule
+import gol_rule
 
-class GOFCellularAutomaton
+class GOLCellularAutomaton
 	super CellularAutomaton
 
-	var displayGridArray = new Array[Array[GOFCell[Int]]]
+	var displayGridArray = new Array[Array[GOLCell[Int]]]
 
 	init
 	do
@@ -28,12 +28,12 @@ class GOFCellularAutomaton
 			dims[i] = 0
 		end
 
-		grid = new Array[GOFCell[Int]]
+		grid = new Array[GOLCell[Int]]
 
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new GOFCell[Int](0, 0, tempArray)
+			grid[i] = new GOLCell[Int](0, 0, tempArray)
 
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
@@ -93,14 +93,14 @@ class GOFCellularAutomaton
 		var width = dimensions[1]
 
 		for i in [0..height - 1] do
-			displayGridArray[i] = new Array[GOFCell[Int]]
+			displayGridArray[i] = new Array[GOLCell[Int]]
 			for j in [0..width - 1] do
-				displayGridArray[i][j] = new GOFCell[Int](0, 0, new Array[Int])
+				displayGridArray[i][j] = new GOLCell[Int](0, 0, new Array[Int])
 			end
 		end
 
 		for i in [0..grid.length - 1] do
-			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(GOFCell[Int])
+			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(GOLCell[Int])
 		end
 	end
 end

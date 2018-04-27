@@ -1,9 +1,9 @@
-module life_form
-import cell
-import celestial_body
+module universe_life_form
+import universe_cell
+import universe_celestial_body
 
 class LifeForm[E]
-	super UniversCell[Int]
+	super UniverseCell[Int]
 	var ressource: Int
 
 	redef fun determineNextState
@@ -53,6 +53,6 @@ class LifeForm[E]
 
 	redef fun createRule
 	do
-		rule = new UniversRule(1)
+		rule = new UniverseRule(1)
 	end
 end

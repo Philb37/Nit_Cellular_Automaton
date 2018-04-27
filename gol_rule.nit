@@ -1,7 +1,7 @@
-module gof_rule
+module gol_rule
 import rule
 
-class GOFRule
+class GOLRule
 	super Rule
 
 	redef fun determineResultI(value: Int): Int

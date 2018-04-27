@@ -1,7 +1,7 @@
-module univers_rule
+module universe_rule
 import rule
 
-class UniversRule
+class UniverseRule
 	super Rule
 
 	redef fun determineResultI(value: Int): Int

@@ -1,8 +1,8 @@
-module gof_cell
+module gol_cell
 import cell
-import gof_rule
+import gol_rule
 
-class GOFCell[E]
+class GOLCell[E]
 	super Cell[E]
 
 	init
@@ -12,7 +12,7 @@ class GOFCell[E]
 
 	redef fun createRule
 	do
-		rule = new GOFRule(1)
+		rule = new GOLRule(1)
 	end
 
 	redef fun determineNextState

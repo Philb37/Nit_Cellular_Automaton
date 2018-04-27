@@ -1,9 +1,8 @@
-module celestial_body
-import cell
-import univers_cell
+module universe_celestial_body
+import universe_cell
 
 class CelestialBody[E]
-	super UniversCell[E]
+	super UniverseCell[E]
 
 	public var isColonized: Bool
 	#var habitant: LifeForm
