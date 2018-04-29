@@ -15,18 +15,28 @@ class UniverseRule
 		end
 	end
 
-	fun determineStarState(planetCount: Int, alivePlanetCount: Int): Int
+	fun determineStarState(planetCount: Int, humanPlanets: Int, robotPlanets: Int): Int
 	do
-		if (alivePlanetCount * 100 / planetCount) > 66 then
-			return 1
+		if humanPlanets > robotPlanets then
+			if (humanPlanets * 100 / planetCount) > 33 then
+				return 1
+			else
+				return 0
+			end
+		else if humanPlanets < robotPlanets then
+			if (robotPlanets * 100 / planetCount) > 33 then
+				return 2
+			else
+				return 0
+			end
 		else
 			return 0
 		end
 	end
 
-	fun determinePlanetState(lifeformNumber: Int): Int
+	fun determinePlanetState(allies: Int, enemies: Int): Int
 	do
-		return lifeformNumber * 10
+		return allies * 10 + enemies * -10 
 	end
 
 	fun determineLifeFormState(enemies: Int, allies: Int): Int

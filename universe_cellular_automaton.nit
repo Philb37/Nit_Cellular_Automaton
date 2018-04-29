@@ -7,6 +7,7 @@ import universe_planet
 import universe_rule
 import universe_human
 import universe_robot
+import universe_black_hole
 
 class UniverseCellularAutomaton
 	super CellularAutomaton
@@ -20,6 +21,7 @@ class UniverseCellularAutomaton
 		generateGrid
 		generateStarCoordinates
 		generateSystem
+		generateBlackHole
 		cellBirth
 		determineNeighbours
 		fillDisplayGrid
@@ -73,21 +75,25 @@ class UniverseCellularAutomaton
 			var length = displayGridArray[i].length
 			for j in [0..length - 1] do
 				if displayGridArray[i][j] isa Planet[Int] then
-					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).green_fg}● {(new TermCharFormat).green_fg}"
+					if displayGridArray[i][j].as(Planet[Int]).habitant isa Human and displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).cyan_fg}● {(new TermCharFormat).cyan_fg}"
+					else if displayGridArray[i][j].as(Planet[Int]).habitant isa Robot and displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).magenta_fg}● {(new TermCharFormat).magenta_fg}"
 					else
 						printn "{(new TermCharFormat).yellow_fg}● {(new TermCharFormat).yellow_fg}"
 					end
 				else if	displayGridArray[i][j] isa Star[Int] then
-					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).white_fg}◉ {(new TermCharFormat).white_fg}"
+					if displayGridArray[i][j].as(Star[Int]).habitant isa Human and displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).blue_fg}◉ {(new TermCharFormat).white_fg}"
+					else if displayGridArray[i][j].as(Star[Int]).habitant isa Robot and displayGridArray[i][j].getCurrentState == 1 then
+						printn "{(new TermCharFormat).green_fg}◉ {(new TermCharFormat).green_fg}"
 					else
-						printn "{(new TermCharFormat).yellow_fg}◉ {(new TermCharFormat).yellow_fg}"
+						printn "{(new TermCharFormat).white_fg}◉ {(new TermCharFormat).white_fg}"
 					end
 				else if displayGridArray[i][j] isa LifeFormCell[Int] then
 					if displayGridArray[i][j].as(LifeFormCell[Int]).life isa Human then
 						if displayGridArray[i][j].getCurrentState == 1 then
-							printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
+							printn "{(new TermCharFormat).cyan_fg}○ {(new TermCharFormat).cyan_fg}"
 						else
 							printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 						end
@@ -98,6 +104,8 @@ class UniverseCellularAutomaton
 							printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 						end
 					end
+				else if displayGridArray[i][j] isa BlackHole[Int] then
+					printn "{(new TermCharFormat).black_fg}● {(new TermCharFormat).black_fg}"
 				end
 			end
 			print ""
@@ -132,8 +140,10 @@ class UniverseCellularAutomaton
 		var starCount = 0
 		while starCount != starNumber do
 			var check = false
-			var x = 49.rand
-			var y = 49.rand
+			var rx = dimensions[0] - 1
+			var x = rx.rand
+			var ry = dimensions[1] - 1
+			var y = ry.rand
 
 			if arrayCoordinates.length > 0 then
 				for k in [0..arrayCoordinates.length -1]
@@ -156,18 +166,35 @@ class UniverseCellularAutomaton
 	fun createSolarSystem(star: Star[Int])
 	do
 		var planetNumber = 0
+
 		while planetNumber < 3 do
-		for i in [0..grid.length - 1] do
-			for j in [-3..3] do
-				for k in [-3..3] do
-					if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
-						if 100.rand <= 8 then
-							grid[i] = new Planet[Int](0, 0, grid[i].coordinates,false,0)
-							planetNumber += 1
-						end
+			for i in [0..grid.length - 1] do
+				for j in [-3..3] do
+					for k in [-3..3] do
+						if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
+							if 100.rand <= 8 then
+								grid[i] = new Planet[Int](0, 0, grid[i].coordinates,false,0)
+								planetNumber += 1
+							end
 						end
 					end
 				end
+			end
+		end
+	end
+
+	fun generateBlackHole
+	do
+		var rx = dimensions[0] - 1
+		var ry = dimensions[1] - 1
+		var index: Int
+
+		loop
+			index = (rx * ry).rand
+
+			if grid[index] isa LifeFormCell[Int] then
+				grid[index] = new BlackHole[Int](1, 1, [grid[index].coordinates[0], grid[index].coordinates[1]])
+				break
 			end
 		end
 	end

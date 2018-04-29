@@ -17,7 +17,7 @@ class Planet[E]
 
 	fun loseRessources
 	do
-		setRessources(getRessources - 7)
+		setRessources(getRessources - 6)
 
 		if getRessources < 0 then
 			setRessources(0)
@@ -26,17 +26,31 @@ class Planet[E]
 
 	redef fun determineNextState
 	do
-		var aliveCellCount = 0
+		var enemiesCount = 0
+		var alliesCount = 0
 
 		for k in [0..neighbours.length - 1] do
 			if neighbours[k] isa LifeFormCell[E] then
-				aliveCellCount += neighbours[k].getCurrentState.as(Int)
+				if neighbours[k].as(LifeFormCell[E]).life.is_same_type(habitant) then
+					alliesCount += neighbours[k].getCurrentState.as(Int)
+				else
+					enemiesCount += neighbours[k].getCurrentState.as(Int)
+				end
 			end
 		end
 
-		setRessources(getRessources + rule.as(UniverseRule).determinePlanetState(aliveCellCount))
+		setRessources(getRessources + rule.as(UniverseRule).determinePlanetState(alliesCount, enemiesCount))
 
-		if getRessources == 0 then
+		if getRessources < 0 then
+			setNextState(1)
+			setRessources(getRessources * -1)
+
+			if habitant isa Human then
+				habitant = new Robot
+			else
+				habitant = new Human
+			end
+		else if getRessources == 0 then
 			setNextState(0)
 		else
 			setNextState(1)
