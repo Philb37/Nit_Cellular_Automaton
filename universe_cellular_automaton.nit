@@ -43,9 +43,9 @@ class UniverseCellularAutomaton
 			var tempArray = [dims[0],dims[1]]
 
 			if 100.rand > 50 then
-				grid[i] = new Human[Int](0,0, tempArray,0)
+				grid[i] = new LifeFormCell[Int](0, 0, tempArray, new Human)
 			else
-				grid[i] = new Robot[Int](0,0, tempArray,0)
+				grid[i] = new LifeFormCell[Int](0, 0, tempArray, new Robot)
 			end
 	
 			if dims[1] == dimensions[0] - 1 then
@@ -84,17 +84,19 @@ class UniverseCellularAutomaton
 					else
 						printn "{(new TermCharFormat).yellow_fg}◉ {(new TermCharFormat).yellow_fg}"
 					end
-				else if displayGridArray[i][j] isa Human[Int] then
-					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
-					else
-						printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
-					end
-				else if displayGridArray[i][j] isa Robot[Int] then
-					if displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).magenta_fg}○ {(new TermCharFormat).magenta_fg}"
-					else
-						printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+				else if displayGridArray[i][j] isa LifeFormCell[Int] then
+					if displayGridArray[i][j].as(LifeFormCell[Int]).life isa Human then
+						if displayGridArray[i][j].getCurrentState == 1 then
+							printn "{(new TermCharFormat).blue_fg}○ {(new TermCharFormat).blue_fg}"
+						else
+							printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+						end
+					else if displayGridArray[i][j].as(LifeFormCell[Int]).life isa Robot then
+						if displayGridArray[i][j].getCurrentState == 1 then
+							printn "{(new TermCharFormat).magenta_fg}○ {(new TermCharFormat).magenta_fg}"
+						else
+							printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
+						end
 					end
 				end
 			end
@@ -115,7 +117,7 @@ class UniverseCellularAutomaton
 	fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
-			if grid[i] isa LifeForm[Int] then
+			if grid[i] isa LifeFormCell[Int] then
 				if 100.rand <= 33 then
 					grid[i].setCurrentState(1)
 				else

@@ -1,29 +1,8 @@
 module universe_life_form
-import universe_cell
 import universe_celestial_body
 
-class LifeForm[E]
-	super UniverseCell[Int]
-	var ressource: Int
-
-	redef fun determineNextState
-	do
-		var aliveCellCount = 0
-
-		for k in [0..neighbours.length - 1] do
-			if neighbours[k] isa LifeForm[E] then
-				aliveCellCount += neighbours[k].getCurrentState
-			end
-		end
-
-		var result = rule.determineResultI(aliveCellCount)
-
-		if result == -1 then
-			setNextState(getCurrentState)
-		else
-			setNextState(result)
-		end
-	end
+class LifeForm
+	var ressource = 0
 
 	fun takeRessources(celestialBody: CelestialBody[Int])
 	do
@@ -35,7 +14,7 @@ class LifeForm[E]
 		#TODO
 	end
 
-	fun fight(lifeform: LifeForm[E]): Bool
+	fun fight(lifeform: LifeForm): Bool
 	do
 		#TODO
 		return false
@@ -49,10 +28,5 @@ class LifeForm[E]
 	fun verifyRessources
 	do
 		#TODO
-	end
-
-	redef fun createRule
-	do
-		rule = new UniverseRule(1)
 	end
 end

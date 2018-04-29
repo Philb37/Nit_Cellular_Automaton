@@ -1,6 +1,6 @@
 module universe_planet
 import universe_celestial_body
-import universe_life_form
+import universe_life_form_cell
 
 class Planet[E]
 	super CelestialBody[E]
@@ -29,7 +29,7 @@ class Planet[E]
 		var aliveCellCount = 0
 
 		for k in [0..neighbours.length - 1] do
-			if neighbours[k] isa LifeForm[E] then
+			if neighbours[k] isa LifeFormCell[E] then
 				aliveCellCount += neighbours[k].getCurrentState.as(Int)
 			end
 		end
