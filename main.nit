@@ -22,22 +22,34 @@ var input: String
 var check: nullable Bool
 
 if args.length != 0 then
-	gameType = args[0].to_i
-	dimension = args[1].to_i
-
-	for i in [0..dimension - 1] do
-		dimensions[i] = args[i+2].to_i
+	if args.length >= 1 then
+		gameType = args[0].to_i
 	end
 
-	generationNumber = args[dimension+2].to_i
-	sleepTime = args[dimension+3].to_i
+	if args.length >= 2 then
+		dimension = args[1].to_i
+	end
+
+	for i in [0..dimension - 1] do
+		if args.length >= i+3 then
+			dimensions[i] = args[i+2].to_i
+		end
+	end
+
+	if args.length >= dimension+3 then
+		generationNumber = args[dimension+2].to_i
+	end
+
+	if args.length >= dimension+4 then
+		sleepTime = args[dimension+3].to_i
+	end
 end
 
 loop
 	if gameType == 1 then
-		print "The game you choose is, The Game Of Life. Do you want to keep this choice ? Yes or no : "
+		print "The game you choose is, The Game Of Life. Do you want to keep this choice ? Yes or No : "
 	else if gameType == 2 then
-		print "The game you choose is, The Universe Game. Do you want to keep this choice ? Yes or no : "
+		print "The game you choose is, The Universe Game. Do you want to keep this choice ? Yes or No : "
 	end
 
 	input = gets
@@ -75,7 +87,11 @@ end
 
 for i in [0..dimension - 1] do
 	loop
-		print "The dimension {i+1} has a length of {dimensions[i]}. Do you want to keep this value ? Yes or No : "
+		if i <= 1 then
+			print "The dimension {i+1} has a length of {dimensions[i]}. Do you want to keep this value ? Yes or No : "
+		else
+			print "The length of the dimension {i+1} has not been set. Do you want to set it ? Yes or No : "
+		end
 		input = gets
 
 		check = checkInput(input)
