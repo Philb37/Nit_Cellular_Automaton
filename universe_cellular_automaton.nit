@@ -14,7 +14,7 @@ class UniverseCellularAutomaton
 
 	var displayGridArray = new Array[Array[UniverseCell[Int]]]
 	var arrayCoordinates = new Array[Array[Int]]
-	var starNumber: Int
+	var starNumber: Int = 5
 
 	init
 	do
