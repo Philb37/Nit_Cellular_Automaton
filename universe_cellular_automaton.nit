@@ -14,7 +14,7 @@ class UniverseCellularAutomaton
 
 	private var arrayCoordinates = new Array[Array[Int]]
 	private var displayGridArray = new Array[Array[UniverseCell[Int]]]
-	private var starNumber: Int = 5
+	private var starNumber: Int
 
 	init
 	do
@@ -36,6 +36,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Display the grid with our need, here we check the type of the cell and if it's colonized to display different symbol or color.
 	redef protected fun displayGrid
 	do
 		for i in [0..displayGridArray.length - 1] do
@@ -43,11 +44,11 @@ class UniverseCellularAutomaton
 			for j in [0..length - 1] do
 				if displayGridArray[i][j] isa Planet[Int] then
 					if displayGridArray[i][j].as(Planet[Int]).habitant isa Human and displayGridArray[i][j].getCurrentState == 1 then
-						printn "{(new TermCharFormat).cyan_fg}● {(new TermCharFormat).cyan_fg}"
+						printn "{(new TermCharFormat).blue_fg}● {(new TermCharFormat).blue_fg}"
 					else if displayGridArray[i][j].as(Planet[Int]).habitant isa Robot and displayGridArray[i][j].getCurrentState == 1 then
 						printn "{(new TermCharFormat).magenta_fg}● {(new TermCharFormat).magenta_fg}"
 					else
-						printn "{(new TermCharFormat).yellow_fg}● {(new TermCharFormat).yellow_fg}"
+						printn "{(new TermCharFormat).white_fg}● {(new TermCharFormat).red_fg}"
 					end
 				else if	displayGridArray[i][j] isa Star[Int] then
 					if displayGridArray[i][j].as(Star[Int]).habitant isa Human and displayGridArray[i][j].getCurrentState == 1 then
@@ -55,7 +56,7 @@ class UniverseCellularAutomaton
 					else if displayGridArray[i][j].as(Star[Int]).habitant isa Robot and displayGridArray[i][j].getCurrentState == 1 then
 						printn "{(new TermCharFormat).green_fg}◉ {(new TermCharFormat).green_fg}"
 					else
-						printn "{(new TermCharFormat).white_fg}◉ {(new TermCharFormat).white_fg}"
+						printn "{(new TermCharFormat).yellow_fg}◉ {(new TermCharFormat).yellow_fg}"
 					end
 				else if displayGridArray[i][j] isa LifeFormCell[Int] then
 					if displayGridArray[i][j].as(LifeFormCell[Int]).life isa Human then
@@ -66,19 +67,20 @@ class UniverseCellularAutomaton
 						end
 					else if displayGridArray[i][j].as(LifeFormCell[Int]).life isa Robot then
 						if displayGridArray[i][j].getCurrentState == 1 then
-							printn "{(new TermCharFormat).magenta_fg}○ {(new TermCharFormat).magenta_fg}"
+							printn "{(new TermCharFormat).green_fg}○ {(new TermCharFormat).green_fg}"
 						else
 							printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 						end
 					end
 				else if displayGridArray[i][j] isa BlackHole[Int] then
-					printn "{(new TermCharFormat).black_fg}● {(new TermCharFormat).black_fg}"
+					printn "{(new TermCharFormat).black_fg}◉ {(new TermCharFormat).black_fg}"
 				end
 			end
 			print ""
 		end
 	end
 
+	#Transform our 2 dimensional array in a simple array as needed in cellular_automaton
 	redef protected fun generateGrid
 	do
 		var cellNumber = 1
@@ -101,7 +103,7 @@ class UniverseCellularAutomaton
 			else
 				grid[i] = new LifeFormCell[Int](tempArray, 0, 0, new Robot)
 			end
-	
+
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
 				dims[1] = 0
@@ -112,6 +114,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Set the state of each cell in the grid
 	private fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
@@ -125,6 +128,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Initialize a certain number of planet (minimum 3) around the star of each Solar System
 	private fun createSolarSystem(star: Star[Int])
 	do
 		var planetNumber = 0
@@ -145,6 +149,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Create a two dimensional array based on our simple array grid to display this in terminal
 	private fun fillDisplayGrid
 	do
 		var height = dimensions[0]
@@ -162,6 +167,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Generate a black hole somewhere in the grid
 	private fun generateBlackHole
 	do
 		var rx = dimensions[0] - 1
@@ -178,6 +184,8 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#Generate the coordinates of our stars, check if they aren't too close if it's the case
+	#regenerate the coordinates
 	private fun generateStarCoordinates
 	do
 		var starCount = 0
@@ -191,7 +199,7 @@ class UniverseCellularAutomaton
 			if arrayCoordinates.length > 0 then
 				for k in [0..arrayCoordinates.length -1]
 				do
-					if (arrayCoordinates[k][0] - x).abs < 15 and (arrayCoordinates[k][1] - y).abs < 11 then
+					if (arrayCoordinates[k][0] - x).abs < 10 and (arrayCoordinates[k][1] - y).abs < 10 then
 						check = true
 					end
 				end
@@ -206,6 +214,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
+	#create a star as much as star is needed in starNumber variable at random coordinates
 	private fun generateSystem
 	do
 		var index: Int

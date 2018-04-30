@@ -7,7 +7,7 @@ fun checkInput(input: String): nullable Bool do
 		return true
 	else if input == "n" or input == "no" or input == "N" or input == "NO" or input == "No"	 then
 		return false
-	else 
+	else
 		return null
 	end
 end
@@ -20,6 +20,7 @@ var generationNumber: Int = 100
 var displayInterval: Int = 1
 var input: String
 var check: nullable Bool
+var starNumber: Int = 5
 
 if args.length != 0 then
 	if args.length >= 1 then
@@ -38,6 +39,10 @@ if args.length != 0 then
 
 	if args.length >= dimension+3 then
 		displayInterval = args[dimension+2].to_i
+	end
+
+	if args.length >= dimension+4 then
+		starNumber = args[dimension+3].to_i
 	end
 end
 
@@ -77,7 +82,7 @@ for i in [0..dimension - 1] do
 		if check == false then
 			print "Enter a new value : "
 			dimensions[i] = gets.to_i
-			
+
 			if i == dimension - 1 then
 				break
 			end
@@ -129,12 +134,31 @@ loop
 	end
 end
 
+if gameType == 2 then
+	loop
+		print "The number of solar system existing in the universe is {starNumber}. Do you want to keep this value ? Yes or No : "
+		input = gets
+
+		check = checkInput(input)
+
+		if check == false then
+			print "Enter a new value : "
+			starNumber = gets.to_i
+			break
+		else if check == null then
+			print "Unknow answer. Please start again."
+		else
+			break
+		end
+	end
+end
+
 print "Starting the game, please wait ..."
 
 if gameType == 1 then
 	ca = new GOLCellularAutomaton(dimension, dimensions, displayInterval, generationNumber)
 else if gameType == 2 then
-	ca = new UniverseCellularAutomaton(dimension, dimensions, displayInterval, generationNumber)
+	ca = new UniverseCellularAutomaton(dimension, dimensions, displayInterval, generationNumber, starNumber)
 else
 	print "Game type incorrect, please restart the program."
 	exit(0)

@@ -10,6 +10,7 @@ class Planet[E]
 		createRule
 	end
 
+	#Determine the next state of the planet(colonized or not) based on civilizations in the neighborhood
 	redef public fun determineNextState
 	do
 		var enemiesCount = 0
@@ -44,11 +45,13 @@ class Planet[E]
 		end
 	end
 
+	#Redef the rule for this class, we need neighbors within a radius of 1 square
 	redef protected fun createRule
 	do
 		rule = new UniverseRule(1)
 	end
 
+	#Ressources are lost at each generation.
 	private fun loseRessources
 	do
 		setRessources(getRessources - 6)

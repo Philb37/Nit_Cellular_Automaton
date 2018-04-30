@@ -46,7 +46,7 @@ abstract class Cell[E]
 	do
 		nextState = state
 	end
-	
+
 	# Updating currentState from nextState value.
 	public fun updateState
 	do

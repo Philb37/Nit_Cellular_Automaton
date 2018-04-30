@@ -29,9 +29,10 @@ class UniverseRule
 		end
 	end
 
+	#Determine the state of the planet
 	public fun determinePlanetState(allies: Int, enemies: Int): Int
 	do
-		return allies * 10 + enemies * -10 
+		return allies * 10 + enemies * -10
 	end
 
 	redef public fun determineResultI(value: Int): Int
@@ -45,6 +46,7 @@ class UniverseRule
 		end
 	end
 
+	#Determine the state of the star based on the number of colonized planet in the solar system by each civilization.
 	public fun determineStarState(planetCount: Int, humanPlanets: Int, robotPlanets: Int): Int
 	do
 		if humanPlanets > robotPlanets then
@@ -63,5 +65,5 @@ class UniverseRule
 			return 0
 		end
 	end
-	
+
 end
