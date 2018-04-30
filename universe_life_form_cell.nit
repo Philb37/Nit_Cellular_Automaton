@@ -7,9 +7,9 @@ import universe_black_hole
 class LifeFormCell[E]
 	super UniverseCell[E]
 
-	var life: LifeForm
+	public var life: LifeForm
 
-	redef fun determineNextState
+	redef public fun determineNextState
 	do
 		var enemiesCount = 0
 		var alliesCount = 0
@@ -51,8 +51,9 @@ class LifeFormCell[E]
 		end
 	end
 
-	redef fun createRule
+	redef protected fun createRule
 	do
 		rule = new UniverseRule(1)
 	end
+	
 end

@@ -10,21 +10,7 @@ class Planet[E]
 		createRule
 	end
 
-	redef fun createRule
-	do
-		rule = new UniverseRule(1)
-	end
-
-	fun loseRessources
-	do
-		setRessources(getRessources - 6)
-
-		if getRessources < 0 then
-			setRessources(0)
-		end
-	end
-
-	redef fun determineNextState
+	redef public fun determineNextState
 	do
 		var enemiesCount = 0
 		var alliesCount = 0
@@ -57,4 +43,19 @@ class Planet[E]
 			loseRessources
 		end
 	end
+
+	redef protected fun createRule
+	do
+		rule = new UniverseRule(1)
+	end
+
+	private fun loseRessources
+	do
+		setRessources(getRessources - 6)
+
+		if getRessources < 0 then
+			setRessources(0)
+		end
+	end
+
 end

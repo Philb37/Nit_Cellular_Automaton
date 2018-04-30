@@ -4,19 +4,14 @@ import universe_planet
 
 class Star[E]
 	super CelestialBody[E]
-	var isAlive: Bool
+	public var isAlive: Bool
 
 	init
 	do
 		createRule
 	end
 
-	redef fun createRule
-	do
-		rule = new UniverseRule(3)
-	end
-
-	redef fun determineNextState
+	redef public fun determineNextState
 	do
 		var planetCount = 0
 		var alivePlanetCount = 0
@@ -50,8 +45,9 @@ class Star[E]
 		end
 	end
 
-	fun superNova
+	redef protected fun createRule
 	do
-		#TODO
+		rule = new UniverseRule(3)
 	end
+
 end

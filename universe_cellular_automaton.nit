@@ -172,7 +172,7 @@ class UniverseCellularAutomaton
 			index = (rx * ry).rand
 
 			if grid[index] isa LifeFormCell[Int] then
-				grid[index] = new BlackHole[Int]([grid[index].coordinates[0], grid[index].coordinates[1]], 1, 1)
+				grid[index] = new BlackHole[Int]([grid[index].coordinates[0], grid[index].coordinates[1]], 1, 1, false, 0)
 				break
 			end
 		end
