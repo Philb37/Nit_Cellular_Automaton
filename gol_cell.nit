@@ -10,12 +10,7 @@ class GOLCell[E]
 		createRule
 	end
 
-	redef fun createRule
-	do
-		rule = new GOLRule(1)
-	end
-
-	redef fun determineNextState
+	redef public fun determineNextState
 	do
 		var aliveCellCount = 0
 
@@ -30,5 +25,10 @@ class GOLCell[E]
 		else
 			setNextState(result)
 		end
+	end
+
+	redef protected fun createRule
+	do
+		rule = new GOLRule(1)
 	end
 end

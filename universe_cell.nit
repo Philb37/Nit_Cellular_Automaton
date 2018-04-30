@@ -10,7 +10,7 @@ class UniverseCell[E]
 		createRule
 	end
 
-	redef fun createRule
+	redef protected fun createRule
 	do
 		rule = new UniverseRule(1)
 	end

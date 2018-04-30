@@ -12,9 +12,9 @@ import universe_black_hole
 class UniverseCellularAutomaton
 	super CellularAutomaton
 
-	var displayGridArray = new Array[Array[UniverseCell[Int]]]
-	var arrayCoordinates = new Array[Array[Int]]
-	var starNumber: Int = 5
+	private var arrayCoordinates = new Array[Array[Int]]
+	private var displayGridArray = new Array[Array[UniverseCell[Int]]]
+	private var starNumber: Int = 5
 
 	init
 	do
@@ -27,40 +27,7 @@ class UniverseCellularAutomaton
 		fillDisplayGrid
 	end
 
-	redef fun generateGrid
-	do
-		var cellNumber = 1
-		var dims = new Array[Int]
-
-		for i in [0..dimensions.length - 1]
-		do
-			cellNumber *= dimensions[i]
-			dims[i] = 0
-		end
-
-		grid = new Array[UniverseCell[Int]]
-
-		for i in [0..cellNumber - 1]
-		do
-			var tempArray = [dims[0],dims[1]]
-
-			if 100.rand > 50 then
-				grid[i] = new LifeFormCell[Int](0, 0, tempArray, new Human)
-			else
-				grid[i] = new LifeFormCell[Int](0, 0, tempArray, new Robot)
-			end
-	
-			if dims[1] == dimensions[0] - 1 then
-				dims[0] += 1
-				dims[1] = 0
-			else
-				dims[1] += 1
-			end
-
-		end
-	end
-
-	redef fun start
+	redef public fun start
 	do
 		for i in [0..generation] do
 			printn "{(new TermClearDisplay)}"
@@ -69,7 +36,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	redef fun displayGrid
+	redef protected fun displayGrid
 	do
 		for i in [0..displayGridArray.length - 1] do
 			var length = displayGridArray[i].length
@@ -112,17 +79,40 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	fun generateSystem
+	redef protected fun generateGrid
 	do
-		var index: Int
-		for k in [0..arrayCoordinates.length - 1] do
-			index = findIndex(arrayCoordinates[k])
-			grid[index] = new Star[Int](0,0,grid[index].coordinates,false,0,true)
-			createSolarSystem(grid[index].as(Star[Int]))
+		var cellNumber = 1
+		var dims = new Array[Int]
+
+		for i in [0..dimensions.length - 1]
+		do
+			cellNumber *= dimensions[i]
+			dims[i] = 0
+		end
+
+		grid = new Array[UniverseCell[Int]]
+
+		for i in [0..cellNumber - 1]
+		do
+			var tempArray = [dims[0],dims[1]]
+
+			if 100.rand > 50 then
+				grid[i] = new LifeFormCell[Int](tempArray, 0, 0, new Human)
+			else
+				grid[i] = new LifeFormCell[Int](tempArray, 0, 0, new Robot)
+			end
+	
+			if dims[1] == dimensions[0] - 1 then
+				dims[0] += 1
+				dims[1] = 0
+			else
+				dims[1] += 1
+			end
+
 		end
 	end
 
-	fun cellBirth
+	private fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
 			if grid[i] isa LifeFormCell[Int] then
@@ -135,7 +125,60 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	fun generateStarCoordinates
+	private fun createSolarSystem(star: Star[Int])
+	do
+		var planetNumber = 0
+
+		while planetNumber < 3 do
+			for i in [0..grid.length - 1] do
+				for j in [-3..3] do
+					for k in [-3..3] do
+						if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
+							if 100.rand <= 8 then
+								grid[i] = new Planet[Int](grid[i].coordinates, 0, 0, false, 0)
+								planetNumber += 1
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
+	private fun fillDisplayGrid
+	do
+		var height = dimensions[0]
+		var width = dimensions[1]
+
+		for i in [0..height - 1] do
+			displayGridArray[i] = new Array[UniverseCell[Int]]
+			for j in [0..width - 1] do
+				displayGridArray[i][j] = new UniverseCell[Int](new Array[Int] , 0, 0)
+			end
+		end
+
+		for i in [0..grid.length - 1] do
+			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(UniverseCell[Int])
+		end
+	end
+
+	private fun generateBlackHole
+	do
+		var rx = dimensions[0] - 1
+		var ry = dimensions[1] - 1
+		var index: Int
+
+		loop
+			index = (rx * ry).rand
+
+			if grid[index] isa LifeFormCell[Int] then
+				grid[index] = new BlackHole[Int]([grid[index].coordinates[0], grid[index].coordinates[1]], 1, 1)
+				break
+			end
+		end
+	end
+
+	private fun generateStarCoordinates
 	do
 		var starCount = 0
 		while starCount != starNumber do
@@ -163,56 +206,14 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	fun createSolarSystem(star: Star[Int])
+	private fun generateSystem
 	do
-		var planetNumber = 0
-
-		while planetNumber < 3 do
-			for i in [0..grid.length - 1] do
-				for j in [-3..3] do
-					for k in [-3..3] do
-						if grid[i].coordinates[0] == (star.coordinates[0] + j) and grid[i].coordinates[1] == (star.coordinates[1] + k) and grid[i].coordinates != star.coordinates then
-							if 100.rand <= 8 then
-								grid[i] = new Planet[Int](0, 0, grid[i].coordinates,false,0)
-								planetNumber += 1
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-
-	fun generateBlackHole
-	do
-		var rx = dimensions[0] - 1
-		var ry = dimensions[1] - 1
 		var index: Int
-
-		loop
-			index = (rx * ry).rand
-
-			if grid[index] isa LifeFormCell[Int] then
-				grid[index] = new BlackHole[Int](1, 1, [grid[index].coordinates[0], grid[index].coordinates[1]])
-				break
-			end
+		for k in [0..arrayCoordinates.length - 1] do
+			index = findIndex(arrayCoordinates[k])
+			grid[index] = new Star[Int](grid[index].coordinates, 0, 0, false,0,true)
+			createSolarSystem(grid[index].as(Star[Int]))
 		end
 	end
 
-	fun fillDisplayGrid
-	do
-		var height = dimensions[0]
-		var width = dimensions[1]
-
-		for i in [0..height - 1] do
-			displayGridArray[i] = new Array[UniverseCell[Int]]
-			for j in [0..width - 1] do
-				displayGridArray[i][j] = new UniverseCell[Int](0, 0, new Array[Int])
-			end
-		end
-
-		for i in [0..grid.length - 1] do
-			displayGridArray[grid[i].coordinates[0]][grid[i].coordinates[1]] = grid[i].as(UniverseCell[Int])
-		end
-	end
 end

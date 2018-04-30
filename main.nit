@@ -14,10 +14,10 @@ end
 
 var ca: nullable CellularAutomaton = null
 var gameType: Int = 1
-var dimensions: Array[Int] = [50,50]
 var dimension: Int = 2
+var dimensions: Array[Int] = [50,50]
 var generationNumber: Int = 100
-var sleepTime: Int = 1
+var displayInterval: Int = 1
 var input: String
 var check: nullable Bool
 
@@ -26,22 +26,18 @@ if args.length != 0 then
 		gameType = args[0].to_i
 	end
 
-	if args.length >= 2 then
-		dimension = args[1].to_i
-	end
-
 	for i in [0..dimension - 1] do
-		if args.length >= i+3 then
-			dimensions[i] = args[i+2].to_i
+		if args.length >= i+2 then
+			dimensions[i] = args[i+1].to_i
 		end
 	end
 
-	if args.length >= dimension+3 then
-		generationNumber = args[dimension+2].to_i
+	if args.length >= dimension+2 then
+		generationNumber = args[dimension+1].to_i
 	end
 
-	if args.length >= dimension+4 then
-		sleepTime = args[dimension+3].to_i
+	if args.length >= dimension+3 then
+		displayInterval = args[dimension+2].to_i
 	end
 end
 
@@ -66,24 +62,6 @@ loop
 		break
 	end
 end
-
-loop
-	print "The number of dimension is set has : {dimension}. Do you want to keep this value ? Yes or No : "
-	input = gets
-
-	check = checkInput(input) 
-
-	if check == false then
-		print "Enter a new value : "
-		dimension = gets.to_i
-		break
-	else if check == null then
-		print "Unknown answer. Please start again."
-	else
-		break
-	end
-end
-
 
 for i in [0..dimension - 1] do
 	loop
@@ -135,14 +113,14 @@ loop
 end
 
 loop
-	print "The sleep time between two displays is {sleepTime}. Do you want to keep this value ? Yes or No : "
+	print "The sleep time between two displays is {displayInterval}. Do you want to keep this value ? Yes or No : "
 	input = gets
 
 	check = checkInput(input)
 
 	if check == false then
 		print "Enter a new value : "
-		sleepTime = gets.to_i
+		displayInterval = gets.to_i
 		break
 	else if check == null then
 		print "Unknow answer. Please start again."
@@ -154,9 +132,9 @@ end
 print "Starting the game, please wait ..."
 
 if gameType == 1 then
-	ca = new GOLCellularAutomaton(dimensions, dimension, generationNumber, sleepTime)
+	ca = new GOLCellularAutomaton(dimension, dimensions, displayInterval, generationNumber)
 else if gameType == 2 then
-	ca = new UniverseCellularAutomaton(dimensions, dimension, generationNumber, sleepTime)
+	ca = new UniverseCellularAutomaton(dimension, dimensions, displayInterval, generationNumber)
 else
 	print "Game type incorrect, please restart the program."
 	exit(0)

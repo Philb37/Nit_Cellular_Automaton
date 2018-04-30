@@ -6,36 +6,24 @@ import cell
 # You can't instantiate this class since it is abstract so don't forget to inherit from it.
 abstract class CellularAutomaton
 	
-	# One dimensional array containing the n dimensional space.
-	# Every functions to manipulate this array, like finding an n dimensions item in it is created below.
-	protected var grid: Array[Cell[Int]] is noinit
+	# Number of dimension.
+	protected var dimension: Int
 
 	# Array containing each dimension length.
 	protected var dimensions: Array[Int]
 
-	# Number of dimension.
-	protected var dimension: Int
+	# Time between each display (in seconds).
+	protected var displayInterval: Int
 
 	# Number of generation.
 	protected var generation: Int
 
-	# Time between each display (in seconds).
-	protected var sleepTime: Int
+	# One dimensional array containing the n dimensional space.
+	# Every functions to manipulate this array, like finding an n dimensions item in it is created below.
+	protected var grid: Array[Cell[Int]] is noinit
 
-	# Method to determine the next state of all cells, display the new grid and then update the state of all cells.
-	protected fun nextGeneration
-	do
-		for i in [0..grid.length - 1] do
-			grid[i].determineNextState
-		end
-
-		displayGrid
-		sleepTime.sleep
-
-		for i in [0..grid.length - 1] do
-			grid[i].updateState
-		end
-	end
+	# Method to start the automaton.
+	public fun start do end
 
 	# Method to determine every neighbours of one cell, the number of neighbours will depends of the value of the cell's rule neighboursRadius variable.
 	# This way of finding every neighbours might not be optimized, O(n²m²).
@@ -62,6 +50,9 @@ abstract class CellularAutomaton
 		end
 	end
 
+	# Method to display the 1D grid into a n-D grid.
+	protected fun displayGrid do end
+
 	# Method to find any cell in the 1D array if you have the n-D coordinates.
 	# Parameters :
 	# coordinates is the array of n-D coordinates.
@@ -76,6 +67,24 @@ abstract class CellularAutomaton
 		end
 
 		return result
+	end
+
+	# Method to generate every cell on the grid.
+	protected fun generateGrid do end
+
+	# Method to determine the next state of all cells, display the new grid and then update the state of all cells.
+	protected fun nextGeneration
+	do
+		for i in [0..grid.length - 1] do
+			grid[i].determineNextState
+		end
+
+		displayGrid
+		displayInterval.sleep
+
+		for i in [0..grid.length - 1] do
+			grid[i].updateState
+		end
 	end
 
 	# Method to calculate the distance between two points of a n-D space.
@@ -96,14 +105,5 @@ abstract class CellularAutomaton
 
 		return max
 	end
-
-	# Method to generate every cell on the grid.
-	protected fun generateGrid do end
-
-	# Method to display the 1D grid into a n-D grid.
-	protected fun displayGrid do end
-
-	# Method to start the automaton.
-	public fun start do end
 
 end

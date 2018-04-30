@@ -7,7 +7,7 @@ import gol_rule
 class GOLCellularAutomaton
 	super CellularAutomaton
 
-	var displayGridArray = new Array[Array[GOLCell[Int]]]
+	private var displayGridArray = new Array[Array[GOLCell[Int]]]
 
 	init
 	do
@@ -17,7 +17,16 @@ class GOLCellularAutomaton
 		fillDisplayGrid
 	end
 
-	redef fun generateGrid
+	redef public fun start
+	do
+		for i in [0..generation] do
+			printn "{(new TermClearDisplay)}"
+			print "{(new TermCharFormat).default_fg}Génération n° {i}{(new TermCharFormat).default_fg}"
+			nextGeneration
+		end
+	end
+
+	redef protected fun generateGrid
 	do
 		var cellNumber = 1
 		var dims = new Array[Int]
@@ -33,7 +42,7 @@ class GOLCellularAutomaton
 		for i in [0..cellNumber - 1]
 		do
 			var tempArray = [dims[0],dims[1]]
-			grid[i] = new GOLCell[Int](0, 0, tempArray)
+			grid[i] = new GOLCell[Int](tempArray, 0, 0)
 
 			if dims[1] == dimensions[0] - 1 then
 				dims[0] += 1
@@ -45,16 +54,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	redef fun start
-	do
-		for i in [0..generation] do
-			printn "{(new TermClearDisplay)}"
-			print "{(new TermCharFormat).default_fg}Génération n° {i}{(new TermCharFormat).default_fg}"
-			nextGeneration
-		end
-	end
-
-	redef fun displayGrid
+	redef protected fun displayGrid
 	do
 		for i in [0..displayGridArray.length - 1] do
 
@@ -69,14 +69,13 @@ class GOLCellularAutomaton
 				else
 					printn "{(new TermCharFormat).red_fg}x {(new TermCharFormat).red_fg}"
 				end
-
 			end
 
 			print ""
 		end
 	end
 
-	fun cellBirth
+	private fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
 			if 100.rand <= 33 then
@@ -87,7 +86,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	fun fillDisplayGrid
+	private fun fillDisplayGrid
 	do
 		var height = dimensions[0]
 		var width = dimensions[1]
@@ -95,7 +94,7 @@ class GOLCellularAutomaton
 		for i in [0..height - 1] do
 			displayGridArray[i] = new Array[GOLCell[Int]]
 			for j in [0..width - 1] do
-				displayGridArray[i][j] = new GOLCell[Int](0, 0, new Array[Int])
+				displayGridArray[i][j] = new GOLCell[Int](new Array[Int], 0, 0)
 			end
 		end
 

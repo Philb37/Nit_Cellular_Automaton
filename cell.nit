@@ -8,24 +8,19 @@ import rule
 # You can't instantiate this class since it is abstract so don't forget to inherit from it.
 abstract class Cell[E]
 	
-	# Array containing all the cell's neighbours.
-	public var neighbours: Array[Cell[E]] is noinit
-	private var currentState: E
-	private var nextState: E
-	public var rule: nullable Rule is noinit
-
 	# Cell's coordinates in the n dimensions space.
 	public var coordinates: Array[Int]
+
+	# Array containing all the cell's neighbours.
+	public var neighbours: Array[Cell[E]] is noinit
+	public var rule: nullable Rule is noinit
+
+	private var currentState: E
+	private var nextState: E
 
 	init
 	do
 		neighbours = new Array[Cell[E]]
-	end
-
-	# currentState Setter.
-	public fun setCurrentState(state: E)
-	do
-		currentState = state
 	end
 
 	# currentState Getter.
@@ -34,10 +29,10 @@ abstract class Cell[E]
 		return currentState
 	end
 
-	# nextState Setter.
-	public fun setNextState(state: E)
+	# currentState Setter.
+	public fun setCurrentState(state: E)
 	do
-		nextState = state
+		currentState = state
 	end
 
 	# nextState Getter.
@@ -46,6 +41,12 @@ abstract class Cell[E]
 		return nextState
 	end
 
+	# nextState Setter.
+	public fun setNextState(state: E)
+	do
+		nextState = state
+	end
+	
 	# Updating currentState from nextState value.
 	public fun updateState
 	do

@@ -4,7 +4,7 @@ import rule
 class GOLRule
 	super Rule
 
-	redef fun determineResultI(value: Int): Int
+	redef public fun determineResultI(value: Int): Int
 	do
 		if value == 3 then
 			return 1
