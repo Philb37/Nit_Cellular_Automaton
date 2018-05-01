@@ -10,8 +10,8 @@ class GOLCell[E]
 		createRule
 	end
 
-	#Count the number of alive cell in the neighbours array of each cell.
-	#Based on the rule of the GoF determine the next state of the cell.
+	# Count the number of alive cell in the neighbours's array of each cell.
+	# Based on the rule of the GoL, determine the cell's next state.
 	redef public fun determineNextState
 	do
 		var aliveCellCount = 0
@@ -29,7 +29,7 @@ class GOLCell[E]
 		end
 	end
 
-	#Redef the rule for this class, we need neighbors within a radius of 1 square.
+	# Redef the rule for this class, we need neighbours within a radius of a one length square.
 	redef protected fun createRule
 	do
 		rule = new GOLRule(1)

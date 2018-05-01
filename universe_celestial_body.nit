@@ -11,13 +11,13 @@ class CelestialBody[E]
 	public var habitant: LifeForm = new Human
 	protected var ressources: Int
 
-	#Getter
+	# Getter
 	public fun getRessources: Int
 	do
 		return ressources
 	end
 
-	#Setter
+	# Setter
 	public fun setRessources(ressource: Int)
 	do
 		ressources = ressource

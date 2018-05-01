@@ -36,7 +36,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Display the grid with our need, here we check the type of the cell and if it's colonized to display different symbol or color.
+	# Display the grid with our needs, here we check the cell's type, and display different symbols or colors.
 	redef protected fun displayGrid
 	do
 		for i in [0..displayGridArray.length - 1] do
@@ -80,7 +80,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Transform our 2 dimensional array in a simple array as needed in cellular_automaton
+	# Transform our two dimensional array in a simple array as needed in cellular_automaton.
 	redef protected fun generateGrid
 	do
 		var cellNumber = 1
@@ -114,7 +114,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Set the state of each cell in the grid
+	# Set the state of each cell in the grid.
 	private fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
@@ -128,7 +128,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Initialize a certain number of planet (minimum 3) around the star of each Solar System
+	# Initialize a certain number of planets (minimum 3) around the star of each Solar System.
 	private fun createSolarSystem(star: Star[Int])
 	do
 		var planetNumber = 0
@@ -149,7 +149,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Create a two dimensional array based on our simple array grid to display this in terminal
+	# Create a two dimensional array based on our simple array grid so we can display it in the terminal.
 	private fun fillDisplayGrid
 	do
 		var height = dimensions[0]
@@ -167,7 +167,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Generate a black hole somewhere in the grid
+	# Generate a black hole randomly in the grid.
 	private fun generateBlackHole
 	do
 		var rx = dimensions[0] - 1
@@ -184,8 +184,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#Generate the coordinates of our stars, check if they aren't too close if it's the case
-	#regenerate the coordinates
+	# Generate the coordinates of our stars, check if they aren't too close from each other if it's the case, regenerate the coordinates.
 	private fun generateStarCoordinates
 	do
 		var starCount = 0
@@ -214,7 +213,7 @@ class UniverseCellularAutomaton
 		end
 	end
 
-	#create a star as much as star is needed in starNumber variable at random coordinates
+	# Create as much stars as needed from starNumber variable to random coordinates.
 	private fun generateSystem
 	do
 		var index: Int

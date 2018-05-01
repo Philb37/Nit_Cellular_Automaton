@@ -11,7 +11,7 @@ class Star[E]
 		createRule
 	end
 
-	#Determine the next state of the Star to check if the star is still colonized or not in the next generation.
+	# Determine the next state of the Star to check if the star is still colonized or not in the next generation.
 	redef public fun determineNextState
 	do
 		var planetCount = 0
@@ -46,7 +46,7 @@ class Star[E]
 		end
 	end
 
-	#Redef the rule for this class, we need neighbors within a radius of 3 square
+	# Redef the rule for this class, we need neighbours within a radius of a three length square.
 	redef protected fun createRule
 	do
 		rule = new UniverseRule(3)

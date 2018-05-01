@@ -26,7 +26,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	#Transform our 2 dimensional array in a simple array as needed in cellular_automaton
+	# Transform our two dimensional array in a simple array as needed in cellular_automaton.
 	redef protected fun generateGrid
 	do
 		var cellNumber = 1
@@ -55,7 +55,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	#Display the grid with our need, here we check the current state & the next state of the cell to determine what we need to print.
+	# Display the grid with our needs, here we check the current state & the next state of the cell to determine what we need to print.
 	redef protected fun displayGrid
 	do
 		for i in [0..displayGridArray.length - 1] do
@@ -77,7 +77,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	#Set the state of each cell in the grid
+	# Set the state of each cell in the grid.
 	private fun cellBirth
 	do
 		for i in [0..grid.length - 1] do
@@ -89,7 +89,7 @@ class GOLCellularAutomaton
 		end
 	end
 
-	#Create a two dimensional array based on our simple array grid to display this in terminal
+	# Create a two dimensional array based on our simple grid array so we can display it in the terminal.
 	private fun fillDisplayGrid
 	do
 		var height = dimensions[0]
