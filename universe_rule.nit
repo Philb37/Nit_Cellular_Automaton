@@ -4,6 +4,7 @@ import rule
 class UniverseRule
 	super Rule
 
+	# Determine the state of a LifeFormCell
 	public fun determineLifeFormState(enemies: Int, allies: Int): Int
 	do
 		if enemies > allies then
@@ -33,17 +34,6 @@ class UniverseRule
 	public fun determinePlanetState(allies: Int, enemies: Int): Int
 	do
 		return allies * 10 + enemies * -10
-	end
-
-	redef public fun determineResultI(value: Int): Int
-	do
-		if value == 3 then
-			return 1
-		else if value == 2 then
-			return -1
-		else
-			return 0
-		end
 	end
 
 	# Determine the state of the star based on the number of colonized planet by each civilization in the solar system.
