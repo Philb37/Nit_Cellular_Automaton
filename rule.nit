@@ -17,19 +17,19 @@ abstract class Rule
 	# Method to do whatever you want in the rule.
 	# Parameters :
 	# value is your value for your rule.
-	# Return an String.
+	# Return a String.
 	public fun determineResultS(value: String): String do return ""
 
 	# Method to do whatever you want in the rule.
 	# Parameters :
 	# value is your value for your rule.
-	# Return an Float.
+	# Return a Float.
 	public fun determineResultF(value: Float): Float do return 0.0
 
 	# Method to do whatever you want in the rule.
 	# Parameters :
 	# value is your value for your rule.
-	# Return an Bool.
+	# Return a Bool.
 	public fun determineResultB(value: Bool): Bool do return false
-	
+
 end

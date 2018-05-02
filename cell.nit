@@ -7,7 +7,7 @@ import rule
 # It contains her neighbours which are determined on the "CellularAutomaton" class.
 # You can't instantiate this class since it is abstract so don't forget to inherit from it.
 abstract class Cell[E]
-	
+
 	# Cell's coordinates in the n dimensions space.
 	public var coordinates: Array[Int]
 
@@ -47,6 +47,9 @@ abstract class Cell[E]
 		nextState = state
 	end
 
+	# Method to determine the nextState of the cell.
+	public fun determineNextState do end
+	
 	# Updating currentState from nextState value.
 	public fun updateState
 	do
@@ -55,8 +58,5 @@ abstract class Cell[E]
 
 	# Instanciation method for the cell's rule.
 	protected fun createRule do end
-
-	# Method to determine the nextState of the cell.
-	public fun determineNextState do end
 
 end
